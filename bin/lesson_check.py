@@ -341,10 +341,12 @@ class CheckBase(object):
 
         if self.args.line_lengths:
             over = [i for (i, l, n) in self.lines if (n > MAX_LINE_LEN) and (not l.startswith('!'))]
-            self.reporter.check(not over,
-                                self.filename,
-                                'Line(s) are too long: {0}',
-                                ', '.join([str(i) for i in over]))
+            self.reporter.check(
+                not over,
+                self.filename,
+                'Line(s) are too long: {0}',
+                ', '.join(str(i) for i in over),
+            )
 
 
     def check_trailing_whitespace(self):
@@ -352,10 +354,12 @@ class CheckBase(object):
 
         if self.args.trailing_whitespace:
             trailing = [i for (i, l, n) in self.lines if P_TRAILING_WHITESPACE.match(l)]
-            self.reporter.check(not trailing,
-                                self.filename,
-                                'Line(s) end with whitespace: {0}',
-                                ', '.join([str(i) for i in trailing]))
+            self.reporter.check(
+                not trailing,
+                self.filename,
+                'Line(s) end with whitespace: {0}',
+                ', '.join(str(i) for i in trailing),
+            )
 
 
     def check_blockquote_classes(self):

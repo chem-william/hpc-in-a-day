@@ -15,11 +15,7 @@ if __name__=='__main__':
 
         current_file = open(file_name)
         current_file_content = current_file.read().split("\n")
-        count = 0
-        for line in current_file_content:
-            if line.startswith("3.1"):
-                count += 1
-
+        count = sum(bool(line.startswith("3.1")) for line in current_file_content)
         print(count)
         sys.exit(0)
     else:

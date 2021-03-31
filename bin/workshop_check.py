@@ -127,7 +127,7 @@ def check_humandate(date):
 
     # The first three characters of month_dates are not empty
     month = month_dates[:3]
-    if any(char == ' ' for char in month):
+    if ' ' in month:
         return False
 
     # But the fourth character is empty ("February" is illegal)
@@ -300,10 +300,10 @@ HANDLERS = {
 }
 
 # REQUIRED is all required categories.
-REQUIRED = set([k for k in HANDLERS if HANDLERS[k][0]])
+REQUIRED = {k for k in HANDLERS if HANDLERS[k][0]}
 
 # OPTIONAL is all optional categories.
-OPTIONAL = set([k for k in HANDLERS if not HANDLERS[k][0]])
+OPTIONAL = {k for k in HANDLERS if not HANDLERS[k][0]}
 
 
 def check_blank_lines(reporter, raw):
@@ -312,10 +312,12 @@ def check_blank_lines(reporter, raw):
     """
 
     lines = [(i, x) for (i, x) in enumerate(raw.strip().split('\n')) if not x.strip()]
-    reporter.check(not lines,
-                   None,
-                   'Blank line(s) in header: {0}',
-                   ', '.join(["{0}: {1}".format(i, x.rstrip()) for (i, x) in lines]))
+    reporter.check(
+        not lines,
+        None,
+        'Blank line(s) in header: {0}',
+        ', '.join("{0}: {1}".format(i, x.rstrip()) for (i, x) in lines),
+    )
 
 
 def check_categories(reporter, left, right, msg):

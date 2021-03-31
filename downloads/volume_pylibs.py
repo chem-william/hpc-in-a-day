@@ -9,8 +9,6 @@ def pylibs_files():
     """ searchs for the path seen by python (aka sys.path) which contains os.py and return all paths to .py therein as a list"""
 
     path_of_ospy = ""
-    text = []
-
     for d in sys.path:
         if os.path.isdir(d) and os.path.exists(d+"/os.py"):
             path_of_ospy = d
@@ -18,11 +16,9 @@ def pylibs_files():
 
     if not path_of_ospy or not os.path.exists(path_of_ospy):
         print("no modules found in "+sys.path)
-        return text
+        return []
 
-    std_files = glob.glob(path_of_ospy+"/*.py")
-
-    return std_files
+    return glob.glob(path_of_ospy+"/*.py")
 
 def bytes_on_disk(fname):
     """ return the number of bytes this file requires on disk  """
@@ -35,10 +31,7 @@ def bytes_on_disk(fname):
 def main():
 
     libs = pylibs_files()
-    nbytes = 0
-
-    for path in libs:
-        nbytes += bytes_on_disk(path)
+    nbytes = sum(bytes_on_disk(path) for path in libs)
 
     print("%i B of standard python libraries found" % (nbytes))
 

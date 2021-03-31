@@ -14,16 +14,11 @@ def inside_circle(total_count):
 
     radii = np.sqrt(x*x + y*y)
 
-    count = len(radii[np.where(radii<=1.0)])
-
-    return count
+    return len(radii[np.where(radii<=1.0)])
 
 def estimate_pi(n_samples,n_cores):
 
-    partitions = [ ]
-    for i in range(n_cores):
-        partitions.append(int(n_samples/n_cores))
-
+    partitions = [int(n_samples/n_cores) for _ in range(n_cores)]
     pool = Pool(processes=n_cores)
     counts=pool.map(inside_circle, partitions)
 

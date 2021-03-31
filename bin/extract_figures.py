@@ -82,7 +82,11 @@ def find_image_links(doc, result):
 def save(stream, images):
     """Save results as Markdown."""
 
-    text = '\n<hr/>\n'.join(['<p><img alt="{0}" src="{1}" /></p>'.format(img['alt'], img['src']) for img in images])
+    text = '\n<hr/>\n'.join(
+        '<p><img alt="{0}" src="{1}" /></p>'.format(img['alt'], img['src'])
+        for img in images
+    )
+
     print(text, file=stream)
 
 

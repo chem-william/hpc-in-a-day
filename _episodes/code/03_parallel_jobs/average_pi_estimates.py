@@ -22,9 +22,6 @@ if __name__=='__main__':
                 if line.startswith("3.1"):
                     pi_estimates_as_strings.append(line)
 
-    pi_estimates = []
-    for s in pi_estimates_as_strings:
-        pi_estimates.append(float(s))
-
+    pi_estimates = [float(s) for s in pi_estimates_as_strings]
     print("averaged value of pi from %i estimates : %f" % (len(pi_estimates),sum(pi_estimates)/len(pi_estimates)))
     sys.exit(0)

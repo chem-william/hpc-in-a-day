@@ -106,8 +106,7 @@ def get_repo_url(source_dir, repo_url):
     project_name = matches[0].group(2)
     require(username, 'empty project name in git remote output {0}'.format(matches[0]))
 
-    url = F_REPO_URL.format(username, project_name)
-    return url
+    return F_REPO_URL.format(username, project_name)
 
 
 def check_labels(reporter, repo_url):
@@ -156,10 +155,7 @@ def get_labels(repo_url):
     require(r.status_code == 200,
             'Request for {0} failed with {1}'.format(url, r.status_code))
 
-    result = {}
-    for entry in r.json():
-        result[entry['name']] = entry['color']
-    return result
+    return {entry['name']: entry['color'] for entry in r.json()}
 
 
 if __name__ == '__main__':

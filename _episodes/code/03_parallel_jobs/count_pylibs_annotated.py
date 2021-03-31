@@ -21,10 +21,8 @@ def load_text():
     std_files = glob.glob(path_of_ospy+"/*.py")
 
     for fn in std_files:
-        fnf = open(fn,"r")
-        text.append("".join(fnf.readlines()))
-        fnf.close()
-
+        with open(fn,"r") as fnf:
+            text.append("".join(fnf.readlines()))
     return "\n".join(text)
 
 def word_count(text):

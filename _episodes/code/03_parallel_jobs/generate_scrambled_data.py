@@ -47,7 +47,6 @@ if __name__=='__main__':
         loop_count += 1
 
     print(">> storing %f GB to %s" % (len(string_to_write)/(1024*1024*1024.),file_name))
-    fh = open(file_name,"w")
-    fh.writelines(string_to_write)
-    fh.close()
+    with open(file_name,"w") as fh:
+        fh.writelines(string_to_write)
     sys.exit(0)

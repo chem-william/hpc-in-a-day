@@ -8,7 +8,7 @@ from multiprocessing.pool import ThreadPool as Pool
 def estimate_pi(total_count):
 
     count_inside = 0
-    for count in range(0, total_count):
+    for _ in range(total_count):
         x = random.random()
         y = random.random()
         d = math.sqrt(x*x + y*y)
